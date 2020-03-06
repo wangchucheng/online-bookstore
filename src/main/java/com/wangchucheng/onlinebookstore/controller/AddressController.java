@@ -14,27 +14,24 @@ public class AddressController {
     @Autowired
     private AddressService addressService;
 
-    @PostMapping(value = "/{userId}")
+    @PostMapping(value = "/user/{userId}")
     public boolean postAddress(@PathVariable Long userId, @RequestBody Address address) {
         address.setUserId(userId);
         return addressService.saveAddress(address);
     }
 
-    @GetMapping(value = "/{userId}")
+    @GetMapping(value = "/user/{userId}")
     public List <AddressDto> getAddresses(@PathVariable Long userId) {
         return addressService.selectAddressesByUserId(userId);
     }
 
-    @PutMapping(value = "/{userId}/{addressId}")
-    public boolean putAddress(@PathVariable Long userId, @PathVariable Long addressId,
-                              @RequestBody Address address) {
-        address.setUserId(userId);
-        address.setAddressId(addressId);
-        return addressService.saveAddress(address);
+    @PutMapping(value = "/{addressId}")
+    public boolean putAddress(@PathVariable Long addressId, @RequestBody Address address) {
+        return addressService.updateAddress(addressId, address);
     }
 
-    @DeleteMapping(value = "/{userId}/{addressId}")
-    public boolean deleteAddress(@PathVariable Long userId, @PathVariable Long addressId) {
-        return addressService.deleteByAddressId(addressId);
+    @DeleteMapping(value = "/{addressId}")
+    public boolean deleteAddress(@PathVariable Long addressId) {
+        return addressService.deleteAddressByAddressId(addressId);
     }
 }

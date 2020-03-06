@@ -32,7 +32,15 @@ public class AddressService {
         }
     }
 
-    public boolean deleteByAddressId(Long addressId) {
+    public boolean updateAddress(Long addressId, Address address) {
+        Address previousAddress = addressRepo.findAllByAddressId(addressId);
+        address.setUserId(previousAddress.getUserId());
+        address.setAddressId(addressId);
+        addressRepo.save(address);
+        return true;
+    }
+
+    public boolean deleteAddressByAddressId(Long addressId) {
         addressRepo.deleteById(addressId);
         return true;
     }
