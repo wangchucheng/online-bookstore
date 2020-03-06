@@ -12,8 +12,14 @@ public class UserService {
     @Autowired
     private UserRepo userRepo;
 
+    @Autowired
+    private CartService cartService;
+
     public boolean saveUser(User user) {
-        userRepo.save(user);
+        User savedUser = userRepo.save(user);
+        if(savedUser.getRole().equals("customer")) {
+            cartService.initCart(savedUser.getUserId());
+        }
         return true;
     }
 
