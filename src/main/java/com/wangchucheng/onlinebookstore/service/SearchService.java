@@ -18,8 +18,8 @@ public class SearchService {
     private BookRepo bookRepo;
 
     public Pagination <List <Book>> searchBooksByKeyword(String keyword, int page, int size) {
-        Pageable pageRequest = PageRequest.of(page, size);
-        Page <Book> books = bookRepo.findAllByTitleContaining(keyword, pageRequest);
+        Pageable pageable = PageRequest.of(page, size);
+        Page <Book> books = bookRepo.findAllByTitleContaining(keyword, pageable);
         if (books != null) {
             return new Pagination <>(books.getTotalElements(), books.getTotalPages(), books.getContent());
         } else {
@@ -28,14 +28,14 @@ public class SearchService {
     }
 
     public Pagination <List <Book>> searchBooksByTime(int page, int size) {
-        Pageable pageRequest = PageRequest.of(page, size, Sort.by("time").descending());
-        Page <Book> books = bookRepo.findAll(pageRequest);
+        Pageable pageable = PageRequest.of(page, size, Sort.by("time").descending());
+        Page <Book> books = bookRepo.findAll(pageable);
         return new Pagination <>(books.getTotalElements(), books.getTotalPages(), books.getContent());
     }
 
     public Pagination <List <Book>> searchBooksBySales(int page, int size) {
-        Pageable pageRequest = PageRequest.of(page, size, Sort.by("sales").descending());
-        Page <Book> books = bookRepo.findAll(pageRequest);
+        Pageable pageable = PageRequest.of(page, size, Sort.by("sales").descending());
+        Page <Book> books = bookRepo.findAll(pageable);
         return new Pagination <>(books.getTotalElements(), books.getTotalPages(), books.getContent());
     }
 }
