@@ -7,8 +7,18 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.lang.Nullable;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 public interface SaleRepo extends JpaRepository <Sale, Long> {
+    @Nullable
+    List <Sale> findAllByTimeAfter(Timestamp startTime);
+
+    @Nullable
+    List <Sale> findAllByTimeBefore(Timestamp endTime);
+
+    @Nullable
+    List <Sale> findAllByTimeBetween(Timestamp startTime, Timestamp endTime);
+
     @Nullable
     Page <Sale> findAllByTimeAfter(Timestamp startTime, Pageable pageable);
 
