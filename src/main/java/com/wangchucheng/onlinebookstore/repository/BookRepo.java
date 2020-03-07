@@ -1,11 +1,11 @@
 package com.wangchucheng.onlinebookstore.repository;
 
 import com.wangchucheng.onlinebookstore.model.Book;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.lang.Nullable;
 
-import java.awt.print.Pageable;
-import java.sql.Timestamp;
 import java.util.List;
 
 public interface BookRepo extends JpaRepository <Book, String> {
@@ -15,5 +15,5 @@ public interface BookRepo extends JpaRepository <Book, String> {
     Book findByIsbn(String isbn);
 
     @Nullable
-    List <Book> findAllByTitleContaining(String keyword);
+    Page <Book> findAllByTitleContaining(String keyword, Pageable pageable);
 }

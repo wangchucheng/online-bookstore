@@ -1,6 +1,7 @@
 package com.wangchucheng.onlinebookstore.controller;
 
 import com.wangchucheng.onlinebookstore.model.Book;
+import com.wangchucheng.onlinebookstore.model.Pagination;
 import com.wangchucheng.onlinebookstore.service.SearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,17 +18,17 @@ public class SearchController {
     private SearchService searchService;
 
     @GetMapping()
-    public List <Book> getBooksBykeyWord(@RequestParam String keyword) {
-        return searchService.searchBooksByKeyword(keyword);
+    public Pagination <List <Book>> getBooksByKeyWord(@RequestParam String keyword, @RequestParam int page, @RequestParam int size) {
+        return searchService.searchBooksByKeyword(keyword, page, size);
     }
 
     @GetMapping(value = "/time")
-    public List <Book> getBooksByTime(@RequestParam int page, @RequestParam int size) {
+    public Pagination <List <Book>> getBooksByTime(@RequestParam int page, @RequestParam int size) {
         return searchService.searchBooksByTime(page, size);
     }
 
     @GetMapping(value = "/sales")
-    public List <Book> getBooksBySales(@RequestParam int page, @RequestParam int size) {
+    public Pagination <List <Book>> getBooksBySales(@RequestParam int page, @RequestParam int size) {
         return searchService.searchBooksBySales(page, size);
     }
 }

@@ -1,15 +1,15 @@
 package com.wangchucheng.onlinebookstore.service;
 
 import com.wangchucheng.onlinebookstore.model.Book;
+import com.wangchucheng.onlinebookstore.model.Pagination;
 import com.wangchucheng.onlinebookstore.repository.BookRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import javax.print.attribute.standard.PageRanges;
-import java.awt.print.Pageable;
-import java.sql.Timestamp;
 import java.util.List;
 
 @Service
@@ -17,17 +17,25 @@ public class SearchService {
     @Autowired
     private BookRepo bookRepo;
 
-    public List <Book> searchBooksByKeyword(String keyword) {
-        return bookRepo.findAllByTitleContaining(keyword);
+    public Pagination <List <Book>> searchBooksByKeyword(String keyword, int page, int size) {
+        Pageable pageRequest = PageRequest.of(page, size);
+        Page <Book> books = bookRepo.findAllByTitleContaining(keyword, pageRequest);
+        if (books != null) {
+            return new Pagination <>(books.getTotalElements(), books.getTotalPages(), books.getContent());
+        } else {
+            return null;
+        }
     }
 
-    public List <Book> searchBooksByTime(int page, int size) {
-        PageRequest pageRequest = PageRequest.of(page, size, Sort.by("time").descending());
-        return bookRepo.findAll(pageRequest).getContent();
+    public Pagination <List <Book>> searchBooksByTime(int page, int size) {
+        Pageable pageRequest = PageRequest.of(page, size, Sort.by("time").descending());
+        Page <Book> books = bookRepo.findAll(pageRequest);
+        return new Pagination <>(books.getTotalElements(), books.getTotalPages(), books.getContent());
     }
 
-    public List <Book> searchBooksBySales(int page, int size) {
-        PageRequest pageRequest = PageRequest.of(page, size, Sort.by("sales").descending());
-        return bookRepo.findAll(pageRequest).getContent();
+    public Pagination <List <Book>> searchBooksBySales(int page, int size) {
+        Pageable pageRequest = PageRequest.of(page, size, Sort.by("sales").descending());
+        Page <Book> books = bookRepo.findAll(pageRequest);
+        return new Pagination <>(books.getTotalElements(), books.getTotalPages(), books.getContent());
     }
 }
