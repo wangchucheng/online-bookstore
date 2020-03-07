@@ -2,6 +2,7 @@ package com.wangchucheng.onlinebookstore.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.sql.Timestamp;
 
 @Entity
 public class Book {
@@ -14,6 +15,8 @@ public class Book {
 
     private double price;
 
+    private String introduction;
+
     private int sales;
 
     private String author;
@@ -22,19 +25,23 @@ public class Book {
 
     private int stock;
 
+    private Timestamp time;
+
     public Book() {
     }
 
-    public Book(String isbn, String title, String coverUrl, double price,
-                int sales, String author, String category, int stock) {
+    public Book(String isbn, String title, String coverUrl, double price, String introduction,
+                int sales, String author, String category, int stock, Timestamp time) {
         this.isbn = isbn;
         this.title = title;
         this.coverUrl = coverUrl;
         this.price = price;
+        this.introduction = introduction;
         this.sales = sales;
         this.author = author;
         this.category = category;
         this.stock = stock;
+        this.time = time;
     }
 
     public String getIsbn() {
@@ -69,6 +76,14 @@ public class Book {
         this.price = price;
     }
 
+    public String getIntroduction() {
+        return introduction;
+    }
+
+    public void setIntroduction(String introduction) {
+        this.introduction = introduction;
+    }
+
     public int getSales() {
         return sales;
     }
@@ -97,7 +112,15 @@ public class Book {
         return stock;
     }
 
-    public void setStock(int number) {
-        this.stock = number;
+    public void setStock(int stock) {
+        this.stock = stock;
+    }
+
+    public Timestamp getTime() {
+        return time;
+    }
+
+    public void setTime(Timestamp time) {
+        this.time = time;
     }
 }

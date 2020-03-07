@@ -4,6 +4,7 @@ import com.wangchucheng.onlinebookstore.model.Book;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.lang.Nullable;
 
+import java.awt.print.Pageable;
 import java.util.List;
 
 public interface BookRepo extends JpaRepository <Book, String> {
@@ -11,4 +12,7 @@ public interface BookRepo extends JpaRepository <Book, String> {
     List <Book> findAllByCategory(String category);
 
     Book findByIsbn(String isbn);
+
+    @Nullable
+    List <Book> findAllByTitleContaining(String keyword);
 }

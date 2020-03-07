@@ -33,6 +33,7 @@ public class BookService {
     public boolean updateBook(String isbn, Book book) {
         Book previousBook = bookRepo.findByIsbn(isbn);
         book.setSales(previousBook.getSales());
+        book.setTime(previousBook.getTime());
         book.setIsbn(isbn);
         bookRepo.save(book);
         return true;
