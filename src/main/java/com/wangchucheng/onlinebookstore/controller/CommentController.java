@@ -1,6 +1,7 @@
 package com.wangchucheng.onlinebookstore.controller;
 
 import com.wangchucheng.onlinebookstore.model.Comment;
+import com.wangchucheng.onlinebookstore.model.Pagination;
 import com.wangchucheng.onlinebookstore.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,13 +15,15 @@ public class CommentController {
     private CommentService commentService;
 
     @GetMapping(value = "/book/{isbn}")
-    public List <Comment> getCommentsByIsbn(@PathVariable String isbn) {
-        return commentService.selectCommentsByIsbn(isbn);
+    public Pagination <List <Comment>> getCommentsByIsbn(@PathVariable String isbn, @RequestParam int page,
+                                                         @RequestParam int size) {
+        return commentService.selectCommentsByIsbn(isbn, page, size);
     }
 
     @GetMapping(value = "user/{userId}")
-    public List <Comment> getCommentsByUserId(@PathVariable Long userId) {
-        return commentService.selectCommentsByUserId(userId);
+    public Pagination <List <Comment>> getCommentsByUserId(@PathVariable Long userId, @RequestParam int page,
+                                                           @RequestParam int size) {
+        return commentService.selectCommentsByUserId(userId, page, size);
     }
 
     @PostMapping(value = "user/{userId}/book/{isbn}")
