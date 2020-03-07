@@ -1,6 +1,7 @@
 package com.wangchucheng.onlinebookstore.controller;
 
 import com.wangchucheng.onlinebookstore.model.Book;
+import com.wangchucheng.onlinebookstore.model.Pagination;
 import com.wangchucheng.onlinebookstore.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
@@ -14,9 +15,10 @@ public class BookController {
     @Autowired
     private BookService bookService;
 
-    @GetMapping()
-    public List <Book> getBooksByCategory(@RequestParam @Nullable String category) {
-        return bookService.selectBooksByCategory(category);
+    @GetMapping
+    public Pagination <List <Book>> getBooksByCategory(@RequestParam @Nullable String category,
+                                                       @RequestParam int page, @RequestParam int size) {
+        return bookService.selectBooksByCategory(category, page, size);
     }
 
     @GetMapping(value = "/{isbn}")
@@ -24,7 +26,7 @@ public class BookController {
         return bookService.selectBookByIsbn(isbn);
     }
 
-    @PostMapping()
+    @PostMapping
     public boolean postBook(@RequestBody Book book) {
         return bookService.saveBook(book);
     }

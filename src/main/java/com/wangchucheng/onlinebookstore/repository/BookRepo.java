@@ -6,11 +6,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.lang.Nullable;
 
-import java.util.List;
-
 public interface BookRepo extends JpaRepository <Book, String> {
     @Nullable
-    List <Book> findAllByCategory(String category);
+    Page <Book> findAllByCategory(String category, Pageable pageable);
 
     Book findByIsbn(String isbn);
 

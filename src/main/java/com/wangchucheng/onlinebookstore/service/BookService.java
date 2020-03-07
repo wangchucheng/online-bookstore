@@ -1,8 +1,12 @@
 package com.wangchucheng.onlinebookstore.service;
 
 import com.wangchucheng.onlinebookstore.model.Book;
+import com.wangchucheng.onlinebookstore.model.Pagination;
 import com.wangchucheng.onlinebookstore.repository.BookRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,11 +16,18 @@ public class BookService {
     @Autowired
     private BookRepo bookRepo;
 
-    public List <Book> selectBooksByCategory(String category) {
+    public Pagination <List <Book>> selectBooksByCategory(String category, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page <Book> books;
         if(category != null) {
-            return bookRepo.findAllByCategory(category);
+            books = bookRepo.findAllByCategory(category, pageable);
         } else {
-            return bookRepo.findAll();
+            books = bookRepo.findAll(pageable);
+        }
+        if (books != null) {
+            return new Pagination <>(books.getTotalElements(), books.getTotalPages(), books.getContent());
+        } else {
+            return null;
         }
     }
 
