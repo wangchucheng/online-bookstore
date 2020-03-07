@@ -50,4 +50,12 @@ public class BookService {
         bookRepo.save(book);
         return true;
     }
+
+    public boolean updateStockAndSales(String isbn, int count) {
+        Book book = bookRepo.findByIsbn(isbn);
+        book.setStock(book.getStock() - count);
+        book.setSales(book.getSales() + count);
+        bookRepo.save(book);
+        return true;
+    }
 }
