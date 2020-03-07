@@ -2,10 +2,14 @@ package com.wangchucheng.onlinebookstore.service;
 
 import com.wangchucheng.onlinebookstore.dto.AddressDto;
 import com.wangchucheng.onlinebookstore.model.Address;
+import com.wangchucheng.onlinebookstore.model.Pagination;
 import com.wangchucheng.onlinebookstore.repository.AddressRepo;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Type;
@@ -21,12 +25,14 @@ public class AddressService {
         return true;
     }
 
-    public List <AddressDto> selectAddressesByUserId(Long userId) {
-        ModelMapper modelMapper = new ModelMapper();
-        List <Address> address = addressRepo.findAllByUserId(userId);
+    public Pagination <List <AddressDto>> selectAddressesByUserId(Long userId, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page <Address> address = addressRepo.findAllByUserId(userId, pageable);
         Type dtoType = new TypeToken <List <AddressDto>>(){}.getType();
+        ModelMapper modelMapper = new ModelMapper();
         if (address != null) {
-            return modelMapper.map(address, dtoType);
+            return new Pagination <>(address.getTotalElements(), address.getTotalPages(),
+                    modelMapper.map(address.getContent(), dtoType));
         } else {
             return null;
         }

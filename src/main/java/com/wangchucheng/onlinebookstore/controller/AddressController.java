@@ -2,6 +2,7 @@ package com.wangchucheng.onlinebookstore.controller;
 
 import com.wangchucheng.onlinebookstore.dto.AddressDto;
 import com.wangchucheng.onlinebookstore.model.Address;
+import com.wangchucheng.onlinebookstore.model.Pagination;
 import com.wangchucheng.onlinebookstore.service.AddressService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -21,8 +22,9 @@ public class AddressController {
     }
 
     @GetMapping(value = "/user/{userId}")
-    public List <AddressDto> getAddresses(@PathVariable Long userId) {
-        return addressService.selectAddressesByUserId(userId);
+    public Pagination <List <AddressDto>> getAddresses(@PathVariable Long userId, @RequestParam int page,
+                                                       @RequestParam int size) {
+        return addressService.selectAddressesByUserId(userId, page, size);
     }
 
     @PutMapping(value = "/{addressId}")
