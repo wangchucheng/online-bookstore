@@ -14,4 +14,16 @@ public interface BookRepo extends JpaRepository <Book, String> {
 
     @Nullable
     Page <Book> findAllByTitleContaining(String keyword, Pageable pageable);
+
+    @Nullable
+    Page <Book> findAllByTitleContainingAndPriceGreaterThanEqual(String keyword, double lowestPrice,
+                                                                   Pageable pageable);
+
+    @Nullable
+    Page <Book> findAllByTitleContainingAndPriceLessThanEqual(String keyword, double highestPrice,
+                                                                   Pageable pageable);
+
+    @Nullable
+    Page <Book> findAllByTitleContainingAndPriceBetween(String keyword, double lowestPrice,
+                                                        double highestPrice, Pageable pageable);
 }
