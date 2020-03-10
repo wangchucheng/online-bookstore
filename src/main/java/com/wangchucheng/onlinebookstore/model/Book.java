@@ -21,6 +21,8 @@ public class Book {
 
     private String author;
 
+    private String publisher;
+
     private String category;
 
     private int stock;
@@ -30,8 +32,8 @@ public class Book {
     public Book() {
     }
 
-    public Book(String isbn, String title, String coverUrl, double price, String introduction,
-                int sales, String author, String category, int stock, Timestamp time) {
+    public Book(String isbn, String title, String coverUrl, double price, String introduction, int sales,
+                String author, String publisher, String category, int stock, Timestamp time) {
         this.isbn = isbn;
         this.title = title;
         this.coverUrl = coverUrl;
@@ -39,6 +41,7 @@ public class Book {
         this.introduction = introduction;
         this.sales = sales;
         this.author = author;
+        this.publisher = publisher;
         this.category = category;
         this.stock = stock;
         this.time = time;
@@ -98,6 +101,14 @@ public class Book {
 
     public void setAuthor(String author) {
         this.author = author;
+    }
+
+    public String getPublisher() {
+        return publisher;
+    }
+
+    public void setPublisher(String publisher) {
+        this.publisher = publisher;
     }
 
     public String getCategory() {

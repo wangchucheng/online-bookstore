@@ -11,7 +11,7 @@ import java.sql.Timestamp;
 import java.util.List;
 
 @RestController
-@RequestMapping("/sale")
+@RequestMapping(value = "/sale")
 public class SaleController {
     @Autowired
     private SaleService saleService;

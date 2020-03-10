@@ -17,7 +17,7 @@ public class SearchController {
     @Autowired
     private SearchService searchService;
 
-    @GetMapping()
+    @GetMapping
     public Pagination <List <Book>> getBooksByKeyWord(@RequestParam String keyword, @RequestParam int page, @RequestParam int size) {
         return searchService.searchBooksByKeyword(keyword, page, size);
     }
