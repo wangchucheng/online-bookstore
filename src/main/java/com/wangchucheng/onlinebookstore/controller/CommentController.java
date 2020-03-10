@@ -20,6 +20,11 @@ public class CommentController {
         return commentService.selectCommentsByIsbn(isbn, page, size);
     }
 
+    @GetMapping(value = "/book/{isbn}/stars")
+    public double getStarByIsbn(@PathVariable String isbn) {
+        return commentService.selectStarByIsbn(isbn);
+    }
+
     @GetMapping(value = "user/{userId}")
     public Pagination <List <Comment>> getCommentsByUserId(@PathVariable Long userId, @RequestParam int page,
                                                            @RequestParam int size) {

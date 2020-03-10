@@ -26,6 +26,11 @@ public class CommentService {
         }
     }
 
+    public double selectStarByIsbn(String isbn) {
+        List <Integer> stars= commentRepo.findStarsByIsbn(isbn);
+        return stars.stream().mapToInt(val -> val).average().orElse(0.0);
+    }
+
     public Pagination <List <Comment>> selectCommentsByUserId(Long userId, int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
         Page <Comment> comments = commentRepo.findAllByUserId(userId, pageable);

@@ -4,7 +4,10 @@ import com.wangchucheng.onlinebookstore.model.Comment;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.lang.Nullable;
+
+import java.util.List;
 
 public interface CommentRepo extends JpaRepository <Comment, Long> {
     Comment findAllByCommentId(Long commentId);
@@ -14,4 +17,7 @@ public interface CommentRepo extends JpaRepository <Comment, Long> {
 
     @Nullable
     Page <Comment> findAllByUserId(Long userId, Pageable pageable);
+
+    @Query("SELECT c.stars FROM Comment c WHERE c.isbn = ?1")
+    List <Integer> findStarsByIsbn(String isbn);
 }
