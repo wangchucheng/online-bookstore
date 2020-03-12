@@ -12,13 +12,18 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @PostMapping("/customer")
+    @GetMapping(value = "/check")
+    public boolean checkUsername(@RequestParam String username) {
+        return userService.checkUsername(username);
+    }
+
+    @PostMapping(value = "/customer")
     public boolean customerSignUp(@RequestBody User user) {
         user.setRole("customer");
         return userService.saveUser(user);
     }
 
-    @GetMapping(value = "/customer")
+    @PostMapping(value = "/customer/authentication")
     public UserDto customerSignIn(@RequestBody User user) {
         return userService.selectUserByUsernameAndPassword(user.getUsername(), user.getPassword(), "customer");
     }
@@ -34,7 +39,7 @@ public class UserController {
         return userService.saveUser(user);
     }
 
-    @GetMapping(value = "/seller")
+    @PostMapping(value = "/seller/authentication")
     public UserDto sellerSignIn(@RequestBody User user) {
         return userService.selectUserByUsernameAndPassword(user.getUsername(), user.getPassword(), "seller");
     }

@@ -15,6 +15,10 @@ public class UserService {
     @Autowired
     private CartService cartService;
 
+    public boolean checkUsername(String username) {
+        return userRepo.existsByUsername(username);
+    }
+
     public boolean saveUser(User user) {
         User savedUser = userRepo.save(user);
         if(savedUser.getRole().equals("customer")) {
@@ -26,7 +30,11 @@ public class UserService {
     public UserDto selectUserByUsernameAndPassword(String username, String password, String role) {
         ModelMapper modelMapper = new ModelMapper();
         User user = userRepo.findByUsernameAndPasswordAndRole(username, password, role);
-        return modelMapper.map(user, UserDto.class);
+        if (user != null) {
+            return modelMapper.map(user, UserDto.class);
+        } else {
+            return null;
+        }
     }
 
     public UserDto selectUserById(Long id) {
