@@ -13,19 +13,19 @@ public interface BookRepo extends JpaRepository <Book, String> {
     Book findByIsbn(String isbn);
 
     @Nullable
-    Page <Book> findAllByTitleContaining(String keyword, Pageable pageable);
+    Page <Book> findAllByTitleContainingOrCategoryContaining(String title, String category, Pageable pageable);
 
     @Nullable
-    Page <Book> findAllByTitleContainingAndPriceGreaterThanEqual(String keyword, double lowestPrice,
-                                                                   Pageable pageable);
+    Page <Book> findAllByTitleContainingOrCategoryContainingAndPriceGreaterThanEqual(String title, String category,
+                                                                                     double lowestPrice, Pageable pageable);
 
     @Nullable
-    Page <Book> findAllByTitleContainingAndPriceLessThanEqual(String keyword, double highestPrice,
-                                                                   Pageable pageable);
+    Page <Book> findAllByTitleContainingOrCategoryContainingAndPriceLessThanEqual(String title, String category,
+                                                                                  double highestPrice, Pageable pageable);
 
     @Nullable
-    Page <Book> findAllByTitleContainingAndPriceBetween(String keyword, double lowestPrice,
-                                                        double highestPrice, Pageable pageable);
+    Page <Book> findAllByTitleContainingOrCategoryContainingAndPriceBetween(String title, String category, double lowestPrice,
+                                                                            double highestPrice, Pageable pageable);
 
     @Nullable
     Page <Book> findFirst10ByIsbnContaining(String isbnPart, Pageable pageable);

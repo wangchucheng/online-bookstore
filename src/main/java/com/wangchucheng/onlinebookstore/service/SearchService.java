@@ -43,13 +43,16 @@ public class SearchService {
         Pageable pageable = PageRequest.of(page, size, sort);
         Page <Book> books;
         if (lowestPrice == null && highestPrice == null) {
-            books = bookRepo.findAllByTitleContaining(keyword, pageable);
+            books = bookRepo.findAllByTitleContainingOrCategoryContaining(keyword, keyword, pageable);
         } else if (lowestPrice != null && highestPrice == null) {
-            books = bookRepo.findAllByTitleContainingAndPriceGreaterThanEqual(keyword, lowestPrice, pageable);
+            books = bookRepo.findAllByTitleContainingOrCategoryContainingAndPriceGreaterThanEqual(keyword, keyword,
+                    lowestPrice, pageable);
         } else if (lowestPrice == null) {
-            books = bookRepo.findAllByTitleContainingAndPriceLessThanEqual(keyword, highestPrice, pageable);
+            books = bookRepo.findAllByTitleContainingOrCategoryContainingAndPriceLessThanEqual(keyword, keyword,
+                    highestPrice, pageable);
         } else {
-            books = bookRepo.findAllByTitleContainingAndPriceBetween(keyword, lowestPrice, highestPrice, pageable);
+            books = bookRepo.findAllByTitleContainingOrCategoryContainingAndPriceBetween(keyword, keyword,
+                    lowestPrice, highestPrice, pageable);
         }
 
         if (books != null) {
