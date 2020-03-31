@@ -20,12 +20,16 @@ public class CartService {
     }
 
     public boolean saveProduct(Long userId, Product product) {
-        Cart cart = cartRepo.findAllByUserId(userId);
-        List <Product> products = cart.getProducts();
-        products.add(product);
-        cart.setProducts(products);
-        cartRepo.save(cart);
-        return true;
+        if(product.getIsbn() == null || product.getCount() == 0) {
+            return false;
+        } else {
+            Cart cart = cartRepo.findAllByUserId(userId);
+            List <Product> products = cart.getProducts();
+            products.add(product);
+            cart.setProducts(products);
+            cartRepo.save(cart);
+            return true;
+        }
     }
 
     public List <Product> selectProducts(Long userId) {
