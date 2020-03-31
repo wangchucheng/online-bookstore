@@ -14,6 +14,8 @@ public class Address {
     @Column(nullable = false)
     private Long userId;
 
+    private String name;
+
     @Column(nullable = false)
     private String phone;
 
@@ -23,9 +25,10 @@ public class Address {
     public Address() {
     }
 
-    public Address(Long addressId, Long userId, String phone, String address) {
+    public Address(Long addressId, Long userId, String name, String phone, String address) {
         this.addressId = addressId;
         this.userId = userId;
+        this.name = name;
         this.phone = phone;
         this.address = address;
     }
@@ -44,6 +47,14 @@ public class Address {
 
     public void setUserId(Long userId) {
         this.userId = userId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getPhone() {

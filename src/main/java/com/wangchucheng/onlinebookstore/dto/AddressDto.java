@@ -5,14 +5,16 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 @JsonInclude(value = JsonInclude.Include.NON_NULL)
 public class AddressDto {
     private Long addressId;
+    private String name;
     private String phone;
     private String address;
 
     public AddressDto() {
     }
 
-    public AddressDto(Long addressId, String phone, String address) {
+    public AddressDto(Long addressId, String name, String phone, String address) {
         this.addressId = addressId;
+        this.name = name;
         this.phone = phone;
         this.address = address;
     }
@@ -23,6 +25,14 @@ public class AddressDto {
 
     public void setAddressId(Long addressId) {
         this.addressId = addressId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getPhone() {
