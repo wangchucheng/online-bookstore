@@ -23,6 +23,8 @@ public class Sale {
 
     private int count;
 
+    private String name;
+
     private String phone;
 
     private String address;
@@ -35,13 +37,16 @@ public class Sale {
     }
 
     public Sale(Long orderId, Long userId, double originalPrice, double paidPrice,
-                String isbn, int count, String phone, String address, String status, Timestamp time) {
+                String isbn, int count,
+                String name, String phone, String address,
+                String status, Timestamp time) {
         this.orderId = orderId;
         this.userId = userId;
         this.originalPrice = originalPrice;
         this.paidPrice = paidPrice;
         this.isbn = isbn;
         this.count = count;
+        this.name = name;
         this.phone = phone;
         this.address = address;
         this.status = status;
@@ -102,6 +107,14 @@ public class Sale {
 
     public void setCount(int count) {
         this.count = count;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getPhone() {

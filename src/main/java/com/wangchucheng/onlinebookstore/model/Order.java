@@ -17,6 +17,8 @@ public class Order {
 
     private double paidPrice;
 
+    private String name;
+
     private String phone;
 
     private String address;
@@ -31,11 +33,13 @@ public class Order {
     public Order() {
     }
 
-    public Order(Long userId, double originalPrice, double paidPrice, String phone,
-                 String address, List <Product> products, String status, Timestamp time) {
+    public Order(Long userId, double originalPrice, double paidPrice,
+                 String name, String phone, String address,
+                 List <Product> products, String status, Timestamp time) {
         this.userId = userId;
         this.originalPrice = originalPrice;
         this.paidPrice = paidPrice;
+        this.name = name;
         this.phone = phone;
         this.address = address;
         this.products = products;
@@ -73,6 +77,14 @@ public class Order {
 
     public void setPaidPrice(double paidPrice) {
         this.paidPrice = paidPrice;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getPhone() {
