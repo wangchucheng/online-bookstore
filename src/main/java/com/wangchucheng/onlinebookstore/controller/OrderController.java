@@ -25,6 +25,7 @@ public class OrderController {
     public Pagination <List <Order>> getOrders(@PathVariable Long userId,
                                                @RequestParam @Nullable Long startTime,
                                                @RequestParam @Nullable Long endTime,
+                                               @RequestParam @Nullable String status,
                                                @RequestParam int page, @RequestParam int size) {
         Timestamp startTimestamp = null;
         Timestamp endTimestamp = null;
@@ -34,6 +35,16 @@ public class OrderController {
         if (endTime != null) {
             endTimestamp = new Timestamp(endTime);
         }
-        return orderService.selectOrders(userId, startTimestamp, endTimestamp, page, size);
+        if (status == null) {
+            return orderService.selectOrdersByUserId(userId, startTimestamp, endTimestamp, page, size);
+        } else {
+            return orderService.selectOrdersByUserIdAndStatus(userId, status, startTimestamp, endTimestamp,
+                    page, size);
+        }
+    }
+
+    @PutMapping(value = "/{orderId}/status")
+    public boolean putStatus(@PathVariable Long orderId, @RequestBody String status) {
+        return orderService.updateStatus(orderId, status);
     }
 }

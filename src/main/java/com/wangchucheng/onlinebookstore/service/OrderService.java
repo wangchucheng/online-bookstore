@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class OrderService {
@@ -53,8 +54,8 @@ public class OrderService {
         return true;
     }
 
-    public Pagination <List <Order>> selectOrders(Long userId, Timestamp startTime,
-                                                  Timestamp endTime, int page, int size) {
+    public Pagination <List <Order>> selectOrdersByUserId(Long userId, Timestamp startTime,
+                                                          Timestamp endTime, int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
         Page <Order> orders;
         if (startTime == null && endTime == null) {
@@ -70,6 +71,40 @@ public class OrderService {
             return new Pagination <>(orders.getTotalElements(), orders.getTotalPages(), orders.getContent());
         } else {
             return null;
+        }
+    }
+
+    public Pagination <List <Order>> selectOrdersByUserIdAndStatus(Long userId, String status,
+                                                                   Timestamp startTime, Timestamp endTime,
+                                                                   int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page <Order> orders;
+        if (startTime == null && endTime == null) {
+            orders = orderRepo.findAllByUserIdAndStatus(userId, status, pageable);
+        } else if (startTime != null && endTime == null) {
+            orders = orderRepo.findAllByUserIdAndStatusAndTimeAfter(userId, status, startTime, pageable);
+        } else if (startTime == null) {
+            orders = orderRepo.findAllByUserIdAndStatusAndTimeBefore(userId, status, endTime, pageable);
+        } else {
+            orders = orderRepo.findAllByUserIdAndStatusAndTimeBetween(userId, status,
+                    startTime, endTime, pageable);
+        }
+        if (orders != null) {
+            return new Pagination <>(orders.getTotalElements(), orders.getTotalPages(), orders.getContent());
+        } else {
+            return null;
+        }
+    }
+
+    public boolean updateStatus(Long orderId, String status) {
+        Optional <Order> orderOptional = orderRepo.findById(orderId);
+        if (orderOptional.isPresent()) {
+            Order order = orderOptional.get();
+            order.setStatus(status);
+            orderRepo.save(order);
+            return true;
+        } else {
+            return false;
         }
     }
 }

@@ -21,4 +21,19 @@ public interface OrderRepo extends JpaRepository <Order, Long> {
     @Nullable
     Page <Order> findAllByUserIdAndTimeBetween(Long userId, Timestamp startTime,
                                                Timestamp endTime, Pageable pageable);
+
+    @Nullable
+    Page <Order> findAllByUserIdAndStatus(Long userId, String status, Pageable pageable);
+
+    @Nullable
+    Page <Order> findAllByUserIdAndStatusAndTimeAfter(Long userId, String status,
+                                                      Timestamp startTime, Pageable pageable);
+
+    @Nullable
+    Page <Order> findAllByUserIdAndStatusAndTimeBefore(Long userId, String status,
+                                                       Timestamp endTime, Pageable pageable);
+
+    @Nullable
+    Page <Order> findAllByUserIdAndStatusAndTimeBetween(Long userId, String status, Timestamp startTime,
+                                               Timestamp endTime, Pageable pageable);
 }
