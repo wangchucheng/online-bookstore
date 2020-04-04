@@ -4,6 +4,7 @@ import com.wangchucheng.onlinebookstore.model.Sale;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.lang.Nullable;
 
 import java.sql.Timestamp;
@@ -53,4 +54,10 @@ public interface SaleRepo extends JpaRepository <Sale, Long> {
     @Nullable
     Page <Sale> findAllByIsbnAndTimeBetween(String isbn, Timestamp startTime,
                                               Timestamp endTime, Pageable pageable);
+
+    Integer countByTimeBetween(Timestamp startTime, Timestamp endTime);
+
+    @Nullable
+    @Query("SELECT SUM (s.paidPrice) FROM Sale s WHERE s.time BETWEEN ?1 AND ?2")
+    Double findSalesAmountByTimeBetween(Timestamp startTime, Timestamp endTime);
 }

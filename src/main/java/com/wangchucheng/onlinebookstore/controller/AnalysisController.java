@@ -2,6 +2,7 @@ package com.wangchucheng.onlinebookstore.controller;
 
 import com.wangchucheng.onlinebookstore.dto.CategoryRatioDto;
 import com.wangchucheng.onlinebookstore.dto.DayRatioDto;
+import com.wangchucheng.onlinebookstore.model.MoM;
 import com.wangchucheng.onlinebookstore.service.AnalysisService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
@@ -37,5 +38,11 @@ public class AnalysisController {
     public List <DayRatioDto> getDayRatios(@RequestParam Long startTime,
                                            @RequestParam Long endTime) {
         return analysisService.getDayRatios(new Timestamp(startTime), new Timestamp(endTime));
+    }
+
+    @GetMapping(value = "/mom")
+    public MoM getMoM(@RequestParam Long time) {
+        Timestamp timestamp = new Timestamp(time);
+        return analysisService.getMoM(timestamp);
     }
 }

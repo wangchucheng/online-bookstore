@@ -2,6 +2,7 @@ package com.wangchucheng.onlinebookstore.service;
 
 import com.wangchucheng.onlinebookstore.dto.CategoryRatioDto;
 import com.wangchucheng.onlinebookstore.dto.DayRatioDto;
+import com.wangchucheng.onlinebookstore.model.MoM;
 import com.wangchucheng.onlinebookstore.model.Sale;
 import com.wangchucheng.onlinebookstore.repository.BookRepo;
 import com.wangchucheng.onlinebookstore.repository.SaleRepo;
@@ -9,10 +10,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.YearMonth;
+import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static java.time.temporal.TemporalAdjusters.*;
 
 @Service
 public class AnalysisService {
@@ -96,5 +102,34 @@ public class AnalysisService {
         } else {
             return null;
         }
+    }
+
+    public MoM getMoM(Timestamp timestamp) {
+        long timestampLong = timestamp.getTime();
+        LocalDateTime thisMonth = LocalDateTime.ofEpochSecond(timestampLong/1000,0, ZoneOffset.ofHours(8));
+        Timestamp thisMonthBegin = Timestamp.valueOf(thisMonth.with(firstDayOfMonth()).withHour(0).withSecond(0));
+        Timestamp thisMonthEnd = Timestamp.valueOf(thisMonth.with(firstDayOfNextMonth()).withHour(0).withSecond(0));
+        LocalDateTime lastMonth = thisMonth.minusMonths(1);
+        Timestamp lastMonthBegin = Timestamp.valueOf(lastMonth.with(firstDayOfMonth()).withHour(0).withSecond(0));
+        Double thisMonthAmount = saleRepo.findSalesAmountByTimeBetween(thisMonthBegin, thisMonthEnd);
+        Double lastMonthAmount = saleRepo.findSalesAmountByTimeBetween(lastMonthBegin, thisMonthBegin);
+        Integer thisMonthNumber = saleRepo.countByTimeBetween(thisMonthBegin, thisMonthEnd);
+        Integer lastMonthNumber = saleRepo.countByTimeBetween(lastMonthBegin, thisMonthBegin);
+        double numRatio;
+        double amountRatio;
+        if (thisMonthAmount == null) {
+            thisMonthAmount = 0.0;
+        }
+        if (lastMonthNumber == 0) {
+            numRatio = 0;
+        } else {
+            numRatio = (double) thisMonthNumber / lastMonthNumber;
+        }
+        if (lastMonthAmount == null) {
+            amountRatio = 0;
+        } else {
+            amountRatio = thisMonthAmount / lastMonthAmount;
+        }
+        return new MoM(thisMonthNumber, thisMonthAmount, numRatio, amountRatio);
     }
 }
