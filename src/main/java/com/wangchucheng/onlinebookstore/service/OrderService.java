@@ -102,6 +102,11 @@ public class OrderService {
             Order order = orderOptional.get();
             order.setStatus(status);
             orderRepo.save(order);
+            List <Sale> sales = saleRepo.findAllByOrderId(orderId);
+            for (Sale sale: sales) {
+                sale.setStatus(status);
+                saleRepo.save(sale);
+            }
             return true;
         } else {
             return false;

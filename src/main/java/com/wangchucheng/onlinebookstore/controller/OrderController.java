@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping(value = "/order")
@@ -44,7 +45,7 @@ public class OrderController {
     }
 
     @PutMapping(value = "/{orderId}/status")
-    public boolean putStatus(@PathVariable Long orderId, @RequestBody String status) {
-        return orderService.updateStatus(orderId, status);
+    public boolean putStatus(@PathVariable Long orderId, @RequestBody Order order) {
+        return orderService.updateStatus(orderId, order.getStatus());
     }
 }

@@ -55,6 +55,8 @@ public interface SaleRepo extends JpaRepository <Sale, Long> {
     Page <Sale> findAllByIsbnAndTimeBetween(String isbn, Timestamp startTime,
                                               Timestamp endTime, Pageable pageable);
 
+    List <Sale> findAllByOrderId(Long orderId);
+
     Integer countByTimeBetween(Timestamp startTime, Timestamp endTime);
 
     @Nullable
