@@ -42,7 +42,7 @@ public class BookController {
     }
 
     @PutMapping(value = "/{isbn}/price")
-    public boolean putPrice(@PathVariable String isbn, @RequestBody double price) {
-        return bookService.updatePrice(isbn, price);
+    public boolean putPrice(@PathVariable String isbn, @RequestBody Book book) {
+        return bookService.updatePrice(isbn, book.getPrice());
     }
 }
