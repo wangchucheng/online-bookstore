@@ -4,6 +4,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+/**
+ * 网络工程与编程实践
+ *
+ * @author 王初程
+ *
+ */
+
 @Entity
 public class Carousel {
     @Id

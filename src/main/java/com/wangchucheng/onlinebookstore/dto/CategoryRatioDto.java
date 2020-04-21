@@ -1,6 +1,11 @@
 package com.wangchucheng.onlinebookstore.dto;
 
-import java.sql.Timestamp;
+/**
+ * 网络工程与编程实践
+ *
+ * @author 王初程
+ *
+ */
 
 public class CategoryRatioDto {
     private String category;

@@ -2,6 +2,13 @@ package com.wangchucheng.onlinebookstore.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
+/**
+ * 网络工程与编程实践
+ *
+ * @author 王初程
+ *
+ */
+
 @JsonInclude(value = JsonInclude.Include.NON_NULL)
 public class UserDto {
     private Long userId;

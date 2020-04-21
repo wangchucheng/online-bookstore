@@ -5,6 +5,13 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.util.List;
 
+/**
+ * 网络工程与编程实践
+ *
+ * @author 王初程
+ *
+ */
+
 @Entity
 public class Cart {
     @Id

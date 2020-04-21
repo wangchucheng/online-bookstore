@@ -1,5 +1,12 @@
 package com.wangchucheng.onlinebookstore.model;
 
+/**
+ * 网络工程与编程实践
+ *
+ * @author 王初程
+ *
+ */
+
 public class MoM {
     private int number;
     private double amount;

@@ -6,6 +6,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.lang.Nullable;
 
+/**
+ * 网络工程与编程实践
+ *
+ * @author 王初程
+ *
+ */
+
 public interface BookRepo extends JpaRepository <Book, String> {
     @Nullable
     Page <Book> findAllByCategory(String category, Pageable pageable);

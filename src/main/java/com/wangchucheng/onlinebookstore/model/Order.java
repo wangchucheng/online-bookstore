@@ -4,6 +4,13 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.List;
 
+/**
+ * 网络工程与编程实践
+ *
+ * @author 王初程
+ *
+ */
+
 @Entity
 @Table(name = "book_order")
 public class Order {

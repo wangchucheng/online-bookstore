@@ -6,6 +6,12 @@ import com.wangchucheng.onlinebookstore.repository.UserRepo;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+/**
+ * 网络工程与编程实践
+ *
+ * @author 王初程
+ *
+ */
 
 @Service
 public class UserService {

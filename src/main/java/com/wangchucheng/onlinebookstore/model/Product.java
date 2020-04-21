@@ -2,6 +2,13 @@ package com.wangchucheng.onlinebookstore.model;
 
 import javax.persistence.Embeddable;
 
+/**
+ * 网络工程与编程实践
+ *
+ * @author 王初程
+ *
+ */
+
 @Embeddable
 public class Product {
     private String isbn;

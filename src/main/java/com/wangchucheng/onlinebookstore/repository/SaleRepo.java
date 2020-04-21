@@ -10,6 +10,13 @@ import org.springframework.lang.Nullable;
 import java.sql.Timestamp;
 import java.util.List;
 
+/**
+ * 网络工程与编程实践
+ *
+ * @author 王初程
+ *
+ */
+
 public interface SaleRepo extends JpaRepository <Sale, Long> {
     @Nullable
     List <Sale> findAllByTimeAfter(Timestamp startTime);

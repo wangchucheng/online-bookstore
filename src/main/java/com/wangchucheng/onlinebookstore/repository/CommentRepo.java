@@ -9,6 +9,13 @@ import org.springframework.lang.Nullable;
 
 import java.util.List;
 
+/**
+ * 网络工程与编程实践
+ *
+ * @author 王初程
+ *
+ */
+
 public interface CommentRepo extends JpaRepository <Comment, Long> {
     Comment findAllByCommentId(Long commentId);
 

@@ -2,6 +2,13 @@ package com.wangchucheng.onlinebookstore.model;
 
 import java.sql.Timestamp;
 
+/**
+ * 网络工程与编程实践
+ *
+ * @author 王初程
+ *
+ */
+
 public class Ratio {
     private String category;
     private double money;
